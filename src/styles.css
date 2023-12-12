@@ -2,3 +2,36 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.card {
+    width: 90%;
+    margin: 5rem;
+}
+.table-card {
+    width: 98%;
+    margin: 1rem;
+}
+.remove-spinner {
+    input[matinput]::-webkit-outer-spin-button,
+    input[matinput]::-webkit-inner-spin-button {
+     -webkit-appearance: none;
+     margin: 0;
+    }
+}
+.card-actions {
+    justify-content: flex-end;
+    gap: 0.7rem;
+}
+.divider {
+    width: 98%;
+    margin: auto !important;
+}
+.dynamic-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+.spacer {
+    flex: 1 1 auto;
+}

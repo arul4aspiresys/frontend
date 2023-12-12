@@ -1,0 +1,33 @@
+<section>
+    <div class="card mat-elevation-z8">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Create Products</mat-card-title>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-content>
+                <div [formGroup]="createProductsForm">
+                    <p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Product Name</mat-label>
+                            <input type="text" matInput formControlName="name">
+                            <mat-icon matSuffix>inventory</mat-icon>
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Product Price</mat-label>
+                            <input type="number" matInput formControlName="price">
+                            <mat-icon matSuffix>sell</mat-icon>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </mat-card-content>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-actions class="card-actions">
+                <button type="button" mat-raised-button color="secondary">Cancel</button>
+                <button type="button" mat-raised-button color="primary" [disabled]="createProductsForm.invalid" (click)="submit()">Create</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</section>

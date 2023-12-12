@@ -1,0 +1,72 @@
+<section>
+    <div class="card mat-elevation-z8">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Create Order</mat-card-title>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-content>
+                <div [formGroup]="createOrderForm">
+                    <p>
+                        <mat-form-field>
+                            <mat-label>Choose Customer</mat-label>
+                            <mat-select formControlName="customerID">
+                                @for (customer of customers; track customer) {
+                                    <mat-option [value]="customer.id">{{customer.name}}</mat-option>
+                                }                                
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                    <mat-card-subtitle>Products</mat-card-subtitle>
+                    <div formArrayName="orderDetails">
+                        <div *ngFor="let field of orderDetails.controls; let i = index;" [formGroupName]="i" class="dynamic-row">
+                            <p>
+                                <mat-form-field>
+                                    <mat-label>Choose Product</mat-label>
+                                    <mat-select formControlName="productID">
+                                        @for (product of products; track product) {
+                                        <mat-option [value]="product.id">{{product.name}}</mat-option>
+                                        }
+                                    </mat-select>
+                                </mat-form-field>
+                            </p>
+                            <p>
+                                <mat-form-field>
+                                    <mat-label>Choose Quantity</mat-label>
+                                    <input type="number" matInput formControlName="quantity" (input)="triggerEvent()">
+                                </mat-form-field>
+                            </p>
+                            <button type="button" *ngIf="i != 0" mat-icon-button (click)="removeField(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                            <button type="button" mat-icon-button (click)="addField()">
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </div>
+                    </div>
+                    <p>
+                        <mat-form-field class="remove-spinner">
+                            <mat-label>Total Amount</mat-label>
+                            <input type="number" matInput formControlName="totalAmount">
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field>
+                            <mat-label>Choose payment method</mat-label>
+                            <mat-select formControlName="paymentMethod">
+                                @for (method of paymentMethods; track method) {
+                                    <mat-option [value]="method.name">{{method.name}}</mat-option>
+                                }
+                            </mat-select>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </mat-card-content>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-actions class="card-actions">
+                <button type="button" mat-raised-button color="secondary">Cancel</button>
+                <button type="button" mat-raised-button color="primary" [disabled]="createOrderForm.invalid" (click)="submit()">Create</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</section>

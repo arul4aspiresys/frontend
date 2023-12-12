@@ -1,0 +1,33 @@
+<section>
+    <div class="mat-elevation-z8 card">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Create Customers</mat-card-title>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-content>
+                <div [formGroup]="createCustomerForm">
+                    <p>
+                        <mat-form-field appearance="fill">
+                            <mat-label>Customer Name</mat-label>
+                            <input type="text" matInput formControlName="name">
+                            <mat-icon matSuffix>person</mat-icon>                        
+                        </mat-form-field>
+                    </p>
+                    <p>
+                        <mat-form-field appearance="fill" class="remove-spinner">
+                            <mat-label>Customer Mobile</mat-label>
+                            <input type="number" matInput formControlName="mobile">
+                            <mat-icon matSuffix>phone</mat-icon>
+                        </mat-form-field>
+                    </p>
+                </div>
+            </mat-card-content>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-actions class="card-actions">
+                <button type="button" mat-raised-button color="secondary">Cancel</button>
+                <button type="button" mat-raised-button color="primary" [disabled]="createCustomerForm.invalid" (click)="submit()">Create</button>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</section>
