@@ -1,11 +1,17 @@
 <section>
-    <div class="mat-elevation-z8 card m-5rem" >
+    <div class="card mat-elevation-z8 m-5rem">
         <mat-card>
-            <div *ngIf="dataSource.data.length > 0; else elseDiv">
-                <mat-card-header>
-                    <mat-card-title>Customer List</mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
+            <mat-card-header>
+                <mat-card-title>Customer Detail</mat-card-title>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-content>
+                <div class="flex-wrapper">
+                        <span class="detail-header">Customer Name: {{customerData.name}}</span>
+                        <span class="detail-header">Mobile: {{customerData.mobile}}</span>
+                </div>
+                <mat-card-subtitle>Orders</mat-card-subtitle>
+                <div *ngIf="dataSource.data.length > 0; else elseBlock" class="m-1rem">
                     <mat-table [dataSource]="dataSource">
                         <!-- ID -->
                         <ng-container matColumnDef="id">
@@ -13,14 +19,14 @@
                             <mat-cell *matCellDef="let element">{{element.id}}</mat-cell>
                         </ng-container>                        
                         <!-- Name -->
-                        <ng-container matColumnDef="name">
-                            <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
-                            <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+                        <ng-container matColumnDef="totalAmount">
+                            <mat-header-cell *matHeaderCellDef>Amount</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.totalAmount}}</mat-cell>
                         </ng-container>
                         <!-- Mobile -->
-                        <ng-container matColumnDef="mobile">
-                            <mat-header-cell *matHeaderCellDef>Mobile</mat-header-cell>
-                            <mat-cell *matCellDef="let element">{{element.mobile}}</mat-cell>
+                        <ng-container matColumnDef="paymentMethod">
+                            <mat-header-cell *matHeaderCellDef>Payment Type</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.paymentMethod}}</mat-cell>
                         </ng-container>
                         <!-- CreatedDate -->
                         <ng-container matColumnDef="createdAt">
@@ -36,17 +42,13 @@
                                 </button>
                             </mat-cell>
                         </ng-container>
-
+    
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                     </mat-table>
-                </mat-card-content>
-            </div>
-            <ng-template #elseDiv>
-                <mat-card-header>
-                    <mat-card-title>No customers found</mat-card-title>
-                </mat-card-header>
-            </ng-template>
+                </div>
+                <ng-template #elseBlock class="m-1rem">No orders found</ng-template>
+            </mat-card-content>
         </mat-card>
     </div>
 </section>

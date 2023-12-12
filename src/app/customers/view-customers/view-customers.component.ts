@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { MatTableDataSource } from '@angular/material/table';
 import { CustomerOutput } from '../../models/customers.interface';
 import { CustomersService } from '../../services/customers.service';
-import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
   selector: 'app-view',
@@ -12,6 +13,7 @@ export class ViewCustomersComponent implements OnInit{
 
   constructor(
     private customerSVC: CustomersService,
+    private router: Router,
   ){}
   
   dataSource = new MatTableDataSource<CustomerOutput>()
@@ -26,6 +28,6 @@ export class ViewCustomersComponent implements OnInit{
     });
   }
   view(id: number){
-    console.log(id);
+    this.router.navigateByUrl(`/customers/${id}`);
   }
 }

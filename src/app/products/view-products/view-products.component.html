@@ -1,5 +1,5 @@
 <section>
-    <div class="mat-elevation-z8 table-card" >
+    <div class="mat-elevation-z8 card m-5rem" >
         <mat-card>
             <div *ngIf="dataSource.data.length > 0; else elseDiv">
                 <mat-card-header>
@@ -17,7 +17,7 @@
                             <mat-header-cell *matHeaderCellDef>Name</mat-header-cell>
                             <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
                         </ng-container>
-                        <!-- Mobile -->
+                        <!-- Price -->
                         <ng-container matColumnDef="price">
                             <mat-header-cell *matHeaderCellDef>Price</mat-header-cell>
                             <mat-cell *matCellDef="let element">{{element.price}}</mat-cell>

@@ -5,11 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .card {
     width: 90%;
-    margin: 5rem;
-}
-.table-card {
-    width: 98%;
-    margin: 1rem;
 }
 .remove-spinner {
     input[matinput]::-webkit-outer-spin-button,
@@ -34,4 +29,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 }
 .spacer {
     flex: 1 1 auto;
+}
+.m-5rem {
+    margin: 5rem;
+}
+.m-1rem {
+    margin: 1rem;
+}
+.flex-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 5rem;
+    margin: 2%;
+}
+.detail-header {
+    font-size: 16px;
+    font-weight: 450;
 }

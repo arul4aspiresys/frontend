@@ -1,13 +1,13 @@
 import { TimeStamp } from "./timestamp.interface";
 
-interface OrderAttributes extends TimeStamp{
+export interface OrderAttributes extends TimeStamp{
     id: number;
     customerID: number;
     totalAmount: number;
     paymentMethod: string;
 }
 
-interface OrderDetailAttributes extends TimeStamp {
+export interface OrderDetailAttributes extends TimeStamp {
     orderID: number;
     productID: number;
     quantity: number;
@@ -18,6 +18,6 @@ export interface OrderInput extends Pick<OrderAttributes, 'customerID' | 'paymen
 }
 
 export interface OrderOutput extends Required<OrderAttributes> {
-    orderDetails: Required<OrderDetailAttributes>;
+    orderDetails: Required<OrderDetailAttributes[]>;
 }
 

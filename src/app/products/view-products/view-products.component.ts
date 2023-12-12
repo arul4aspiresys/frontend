@@ -15,7 +15,7 @@ export class ViewProductsComponent implements OnInit {
   ) {}
 
   dataSource = new MatTableDataSource<ProductOutput>();
-  displayedColumns: string[] = [ 'id', 'name', 'price', 'createdAt', 'actions' ];
+  displayedColumns: string[] = [ 'id', 'name', 'price', 'createdAt' ];
   ngOnInit(): void {
     this.productsSVC.getAll().subscribe( response => {
       if(response) {

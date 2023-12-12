@@ -1,0 +1,42 @@
+<section>
+    <div class="card mat-elevation-z8 m-5rem">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Order Detail</mat-card-title>
+            </mat-card-header>
+            <mat-divider class="divider"></mat-divider>
+            <mat-card-content>
+                <div class="flex-wrapper">
+                        <span class="detail-header">Customer Name: {{getCustomerName(orderData.customerID)}}</span>
+                        <span class="detail-header">Order ID: {{orderData.id}}</span>
+                        <span class="detail-header">Order Amount: {{orderData.totalAmount}}</span>
+                        <span class="detail-header">Payment Method: {{orderData.paymentMethod}}</span>
+                </div>
+                <mat-card-subtitle>Details</mat-card-subtitle>
+                <div *ngIf="dataSource.data.length > 0; else elseBlock" class="m-1rem">
+                    <mat-table [dataSource]="dataSource">
+                        <!-- Product -->
+                        <ng-container matColumnDef="productID">
+                            <mat-header-cell *matHeaderCellDef>Product</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{getProductName(element.productID)}}</mat-cell>
+                        </ng-container>                        
+                        <!-- Quantity -->
+                        <ng-container matColumnDef="quantity">
+                            <mat-header-cell *matHeaderCellDef>Quantity</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.quantity}}</mat-cell>
+                        </ng-container>
+                        <!-- CreatedDate -->
+                        <ng-container matColumnDef="createdAt">
+                            <mat-header-cell *matHeaderCellDef>Created Date</mat-header-cell>
+                            <mat-cell *matCellDef="let element">{{element.createdAt | date: 'dd-MMM-yyyy'}}</mat-cell>
+                        </ng-container>
+    
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+                    </mat-table>
+                </div>
+                <ng-template #elseBlock class="m-1rem">No orders found</ng-template>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</section>
