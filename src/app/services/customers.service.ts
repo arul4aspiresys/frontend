@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { CustomerInput, CustomerOutput } from '../models/customers.interface';
+import { CustomerDetail, CustomerInput, CustomerOutput } from '../models/customers.interface';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -23,8 +23,8 @@ export class CustomersService {
     return this.http.get<CustomerOutput[]>(this.baseUrL);
   }
 
-  getById(id: number): Observable<CustomerOutput> {
-    return this.http.get<CustomerOutput>(this.baseUrL + `/${id}`);
+  getById(id: number): Observable<CustomerDetail> {
+    return this.http.get<CustomerDetail>(this.baseUrL + `/${id}`);
   }
 
   deleteById(id: number): Observable<boolean> {
