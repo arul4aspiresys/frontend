@@ -29,7 +29,6 @@ export class OrderDetailComponent implements OnInit {
   ){}
   
   ngOnInit(): void {
-    this.orderData = this.route.snapshot.data['order'];
     forkJoin([
       this.productsSVC.getAll(),
       this.customersSVC.getAll()
@@ -37,9 +36,10 @@ export class OrderDetailComponent implements OnInit {
       if(response && response.length > 0) {
         this.products = response[0];
         this.customers = response[1];
+        this.orderData = this.route.snapshot.data['order'];
+        this.dataSource.data = this.orderData.orderDetails;
       }
     });
-    this.dataSource.data = this.orderData.orderDetails;
   }
 
   getProductName(id: number) {
