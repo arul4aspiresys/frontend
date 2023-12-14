@@ -47,7 +47,9 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
                     </mat-table>
                 </div>
-                <ng-template #elseBlock class="m-1rem">No orders found</ng-template>
+                <ng-template #elseBlock>
+                    <div class="m-1rem">No orders found</div>
+                </ng-template>
             </mat-card-content>
         </mat-card>
     </div>

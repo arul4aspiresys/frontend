@@ -13,7 +13,7 @@ export const customerStub1: CustomerDetail = {
         customerID: 1,
         paymentMethod: 'UPI',
         id: 1,
-        totalAmount: 100.00
+        totalAmount: 100.88
     }],
     createdAt: new Date('2023-12-08T10:04:49.000Z'),
     updatedAt: new Date('2023-12-08T10:04:49.000Z'),
@@ -39,6 +39,16 @@ export const customerStub2: CustomerDetail = {
     updatedAt: new Date('2023-12-08T10:04:49.000Z'),
     deletedAt: new Date('2023-12-08T10:04:49.000Z')
 };
+
+export const customerWithOutOrdersStub: CustomerDetail = {
+    id: 3,
+    name: 'C3',
+    mobile: 1234567890,
+    orders: [],
+    createdAt: new Date('2023-12-08T10:04:49.000Z'),
+    updatedAt: new Date('2023-12-08T10:04:49.000Z'),
+    deletedAt: new Date('2023-12-08T10:04:49.000Z')
+}
 
 export const customerListStub: CustomerOutput[] = [
     { ...(( { id, name, mobile, createdAt, updatedAt, deletedAt } ) => ({ id, name, mobile, createdAt, updatedAt, deletedAt }))(customerStub1) },
