@@ -11,7 +11,10 @@
                         <mat-form-field appearance="fill">
                             <mat-label>Customer Name</mat-label>
                             <input type="text" matInput formControlName="name">
-                            <mat-icon matSuffix>person</mat-icon>                        
+                            <mat-icon matSuffix>person</mat-icon> 
+                            @if (createCustomerForm.get('name')?.invalid) {
+                                <mat-error>Customer name is required!</mat-error>
+                            }                       
                         </mat-form-field>
                     </p>
                     <p>
@@ -19,6 +22,12 @@
                             <mat-label>Customer Mobile</mat-label>
                             <input type="number" matInput formControlName="mobile">
                             <mat-icon matSuffix>phone</mat-icon>
+                            @if (createCustomerForm.get('mobile')?.invalid && createCustomerForm.get('mobile')?.hasError('required')) {
+                                <mat-error>Customer mobile is required!</mat-error>
+                            }
+                            @if (createCustomerForm.get('mobile')?.invalid && createCustomerForm.get('mobile')?.hasError('pattern')) {
+                                <mat-error>Customer mobile is invalid!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                 </div>

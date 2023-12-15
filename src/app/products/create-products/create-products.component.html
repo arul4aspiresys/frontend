@@ -12,6 +12,9 @@
                             <mat-label>Product Name</mat-label>
                             <input type="text" matInput formControlName="name">
                             <mat-icon matSuffix>inventory</mat-icon>
+                            @if (createProductsForm.get('name')?.invalid) {
+                                <mat-error>Product name is required!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                     <p>
@@ -19,6 +22,12 @@
                             <mat-label>Product Price</mat-label>
                             <input type="number" matInput formControlName="price">
                             <mat-icon matSuffix>sell</mat-icon>
+                            @if (createProductsForm.get('price')?.invalid && createProductsForm.get('price')?.hasError('required')) {
+                                <mat-error>Product price is required!</mat-error>
+                            }
+                            @if (createProductsForm.get('price')?.invalid && createProductsForm.get('price')?.hasError('pattern')) {
+                                <mat-error>Product price is invalid!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                 </div>

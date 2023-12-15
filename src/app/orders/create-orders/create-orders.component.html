@@ -15,6 +15,9 @@
                                     <mat-option [value]="customer.id">{{customer.name}}</mat-option>
                                 }                                
                             </mat-select>
+                            @if(createOrderForm.get('customerID')?.invalid) {
+                                <mat-error>Customer is required!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                     <mat-card-subtitle>Products</mat-card-subtitle>
@@ -23,17 +26,23 @@
                             <p>
                                 <mat-form-field>
                                     <mat-label>Choose Product</mat-label>
-                                    <mat-select formControlName="productID">
+                                    <mat-select formControlName="productID" (selectionChange)="triggerEvent()">
                                         @for (product of products; track product) {
                                         <mat-option [value]="product.id">{{product.name}}</mat-option>
                                         }
                                     </mat-select>
+                                    @if(createOrderForm.get('orderDetails')?.invalid){
+                                        <mat-error>Product is required!</mat-error>
+                                    }
                                 </mat-form-field>
                             </p>
                             <p>
                                 <mat-form-field>
                                     <mat-label>Choose Quantity</mat-label>
                                     <input type="number" matInput formControlName="quantity" (input)="triggerEvent()">
+                                    @if(createOrderForm.get('orderDetails')?.invalid){
+                                        <mat-error>Quantity is required!</mat-error>
+                                    }
                                 </mat-form-field>
                             </p>
                             <button type="button" *ngIf="i != 0" mat-icon-button (click)="removeField(i)">
@@ -47,7 +56,10 @@
                     <p>
                         <mat-form-field class="remove-spinner">
                             <mat-label>Total Amount</mat-label>
-                            <input type="number" matInput formControlName="totalAmount">
+                            <input type="number" readonly matInput formControlName="totalAmount">
+                            @if(createOrderForm.get('totalAmount')?.invalid){
+                                <mat-error>Total amount is Required!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                     <p>
@@ -58,6 +70,9 @@
                                     <mat-option [value]="method.name">{{method.name}}</mat-option>
                                 }
                             </mat-select>
+                            @if(createOrderForm.get('paymentMethod')?.invalid){
+                                <mat-error>Payment method is required!</mat-error>
+                            }
                         </mat-form-field>
                     </p>
                 </div>

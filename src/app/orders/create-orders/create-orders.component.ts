@@ -91,7 +91,8 @@ export class CreateOrdersComponent implements OnInit {
 
    triggerEvent() {
     const selectedProducts: any[]  = this.createOrderForm.get('orderDetails')?.value;
-    let total: number = selectedProducts.reduce((acc, el) => {
+    const nonEmptyProducts: any[] = selectedProducts.filter(el => (el.quantity && el.productID) )
+    let total: number = nonEmptyProducts.reduce((acc, el) => {
       const product = this.products.find(p => el.productID == p.id);
       if(product){
         return acc + (el.quantity * product.price);
