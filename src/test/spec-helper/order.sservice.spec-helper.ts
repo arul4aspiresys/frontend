@@ -4,12 +4,15 @@ import { environment } from "../../environments/environment";
 export const orderStub1: OrderOutput = {
     id: 1,
     customerID: 1,
-    totalAmount: 100.00,
+    totalAmount: 123.78,
     orderDetails: [
         {
             orderID: 1,
             productID: 1,
             quantity: 1,
+            createdAt: new Date('2023-12-08T10:04:49.000Z'),
+            updatedAt: new Date('2023-12-08T10:04:49.000Z'),
+            deletedAt: new Date('2023-12-08T10:04:49.000Z')
         }
     ],
     paymentMethod: 'Cash',

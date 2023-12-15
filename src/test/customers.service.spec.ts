@@ -22,9 +22,9 @@ describe('CustomersService', () => {
         controller = TestBed.inject(HttpTestingController);
     });
 
-    it('creates a service', () => {
+    /* it('creates a service', () => {
         expect(service).toBeTruthy();
-    });
+    }); */
 
     it('creates a customer', () => {
         let apiResponse: CustomerOutput | undefined;

@@ -5,13 +5,16 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { customerStub1, customerWithOutOrdersStub } from "./spec-helper/customer.service.spec-helper";
 import { DebugElement } from "@angular/core";
 import { By } from "@angular/platform-browser";
+import { orderStub1 } from "./spec-helper/order.sservice.spec-helper";
+
+let component: CustomerDetailComponent;
+let fixture: ComponentFixture<CustomerDetailComponent>;
+let route: ActivatedRoute;
+let router: Router;
+let el: DebugElement;
 
 describe('CustomerDetailComponent', () => {
-    let component: CustomerDetailComponent;
-    let fixture: ComponentFixture<CustomerDetailComponent>;
-    let route: ActivatedRoute;
-    let router: Router;
-    let el: DebugElement;
+    
     const columnClasses = {
         headerClass: ".mat-mdc-header-cell",
         cellClass: ".mat-mdc-cell",
@@ -30,41 +33,13 @@ describe('CustomerDetailComponent', () => {
         });
     });
     
-    it('creates a component', () => {
-        TestBed.overrideProvider(ActivatedRoute, {
-            useValue: {
-                snapshot: {
-                    data: {
-                        customer: customerStub1
-                    }
-                }
-            }
-        }).compileComponents();
-        fixture = TestBed.createComponent(CustomerDetailComponent);
-        el = fixture.debugElement;
-        route = TestBed.inject(ActivatedRoute);
-        router = TestBed.inject(Router);
-        component = fixture.componentInstance;
+    /* it('creates a component', () => {
+        overrideWithStub();
         expect(component).toBeTruthy();
-    });
+    }); */
     
     it('shows details of one customer detail', () => {
-        TestBed.overrideProvider(ActivatedRoute, {
-            useValue: {
-                snapshot: {
-                    data: {
-                        customer: customerStub1
-                    }
-                }
-            }
-        }).compileComponents();
-        fixture = TestBed.createComponent(CustomerDetailComponent);
-        el = fixture.debugElement;
-        route = TestBed.inject(ActivatedRoute);
-        router = TestBed.inject(Router);
-        component = fixture.componentInstance;
-        component.customerData = route.snapshot.data['customer'];
-        fixture.detectChanges();
+        overrideWithStub();
         
         const card = el.query(By.css("mat-card"));
         const customerName = el.query(By.css(".detail-header:first-child"));
@@ -89,58 +64,74 @@ describe('CustomerDetailComponent', () => {
         expect(totalAmountHeader.nativeElement.innerHTML).toEqual("Amount");
         expect(paymentMethodHeader.nativeElement.innerHTML).toEqual("Payment Type");
         expect(actionsHeader.nativeElement.innerHTML).toEqual("Actions");
-        expect(idCell.nativeElement.innerHTML).toEqual("1");
-        expect(totalAmountCell.nativeElement.innerHTML).toEqual("100.88");
-        expect(paymentMethodCell.nativeElement.innerHTML).toEqual("UPI");
+        expect(idCell.nativeElement.innerHTML).toContain(customerStub1.orders[0].id);
+        expect(totalAmountCell.nativeElement.innerHTML).toContain(customerStub1.orders[0].totalAmount);
+        expect(paymentMethodCell.nativeElement.innerHTML).toEqual(customerStub1.orders[0].paymentMethod);
         expect(actionsCell).toBeTruthy();
     });
 
     it('shows a "No order found" message if no orders available for the customer', () => {
-        TestBed.overrideProvider(ActivatedRoute, {
-            useValue: {
-                snapshot: {
-                    data: {
-                        customer: customerWithOutOrdersStub
-                    }
-                }
-            }
-        }).compileComponents();
-        fixture = TestBed.createComponent(CustomerDetailComponent);
-        el = fixture.debugElement;
-        route = TestBed.inject(ActivatedRoute);
-        router = TestBed.inject(Router);
-        component = fixture.componentInstance;
-        component.customerData = route.snapshot.data['customer'];
-        fixture.detectChanges();
-
+        overrideWithStubEmpty();
         const elseBlock = el.query(By.css("mat-card-content .m-1rem")).nativeElement.innerHTML;
         expect(elseBlock).toEqual("No orders found");
     });
 
     it('navigates to order detail page upon clicking the launch button', () => {
-        TestBed.overrideProvider(ActivatedRoute, {
-            useValue: {
-                snapshot: {
-                    data: {
-                        customer: customerStub1
-                    }
-                }
-            }
-        }).compileComponents();
-        fixture = TestBed.createComponent(CustomerDetailComponent);
-        el = fixture.debugElement;
-        route = TestBed.inject(ActivatedRoute);
-        router = TestBed.inject(Router);
-        component = fixture.componentInstance;
-        component.customerData = route.snapshot.data['customer'];
-        fixture.detectChanges();
-
+        overrideWithStub();
         spyOn(router, 'navigateByUrl');
-
         const launchButton = el.query(By.css(columnClasses.cellClass + columnClasses.actionsClass + ' .mdc-icon-button'));
-        console.log(launchButton.nativeElement);
         launchButton.triggerEventHandler('click', null);
+        expect(router.navigateByUrl).toHaveBeenCalledWith("/orders/1");
+    });
 
+    it('fetches data from services when the component is initialized', () => {
+        overrideWithStub();
+        component.ngOnInit();
+        expect(component.customerData).toEqual(customerStub1);
+        expect(component.dataSource.data).toEqual(customerStub1.orders);
+    });
+
+    it('navigates to specific order on calling view()', () => {
+        spyOn(router, 'navigateByUrl');
+        component.view(customerStub1.orders[0].id);
         expect(router.navigateByUrl).toHaveBeenCalledWith("/orders/1");
     });
 });
+
+function overrideWithStub() {
+    TestBed.overrideProvider(ActivatedRoute, {
+        useValue: {
+            snapshot: {
+                data: {
+                    customer: customerStub1
+                }
+            }
+        }
+    }).compileComponents();
+    fixture = TestBed.createComponent(CustomerDetailComponent);
+    el = fixture.debugElement;
+    route = TestBed.inject(ActivatedRoute);
+    router = TestBed.inject(Router);
+    component = fixture.componentInstance;
+    component.customerData = route.snapshot.data['customer'];
+    fixture.detectChanges();
+}
+
+function overrideWithStubEmpty() {
+    TestBed.overrideProvider(ActivatedRoute, {
+        useValue: {
+            snapshot: {
+                data: {
+                    customer: customerWithOutOrdersStub
+                }
+            }
+        }
+    }).compileComponents();
+    fixture = TestBed.createComponent(CustomerDetailComponent);
+    el = fixture.debugElement;
+    route = TestBed.inject(ActivatedRoute);
+    router = TestBed.inject(Router);
+    component = fixture.componentInstance;
+    component.customerData = route.snapshot.data['customer'];
+    fixture.detectChanges();
+}

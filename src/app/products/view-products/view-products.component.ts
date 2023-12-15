@@ -23,5 +23,4 @@ export class ViewProductsComponent implements OnInit {
       }
     })
   }
-  view(id: number) {}
 }
