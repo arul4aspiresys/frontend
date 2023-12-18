@@ -1,18 +1,59 @@
 import { TestBed } from '@angular/core/testing';
-import { ResolveFn } from '@angular/router';
+import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from '@angular/router';
 
-import { customerResolver } from './customer.resolver';
+import * as ResolverUnderTest from './customer.resolver';
+import { Injectable } from '@angular/core';
+import { CustomerDetail } from '../models/customers.interface';
+import { CustomersService } from './customers.service';
+import { of } from 'rxjs';
+import { ColdObservable } from 'rxjs/internal/testing/ColdObservable';
 
-/* describe('customerResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) => 
-      TestBed.runInInjectionContext(() => customerResolver(...resolverParameters));
+const mockRoute = { params: { id: 1 }} as unknown as ActivatedRouteSnapshot;
+const mockCustomer: CustomerDetail = {
+  id: 1,
+  name: 'Test',
+  mobile: 1234567890,
+  orders: [
+    {
+      id: 1,
+      totalAmount: 123.33,
+      paymentMethod: 'Cash',
+      customerID: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      deletedAt: new Date()
+    }
+  ],
+  createdAt: new Date(),
+  updatedAt: new Date(),
+  deletedAt: new Date(),
+};
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
+describe('customerResolver', () => {
+  let service: ResolverTestService;
+
+  TestBed.configureTestingModule({
+    providers: [
+      ResolverTestService,
+      {
+        provide: CustomersService,
+        useValue: {
+          getById: () => of(mockCustomer)
+        }
+      }
+    ]
   });
 
-  it('should be created', () => {
-    expect(executeResolver).toBeTruthy();
+  service = TestBed.inject(ResolverTestService);
+
+  it('should return the requested customer', () => {
+    expect(service.resolverUnderTest).toBe(mockCustomer);
   });
+  
 });
- */
+
+@Injectable() 
+class ResolverTestService {
+  constructor() {}
+  resolverUnderTest = ResolverUnderTest.customerResolver(mockRoute, {} as RouterStateSnapshot);
+}

@@ -28,4 +28,13 @@ export const createProductPayloadStub: ProductInput = {
 
 export const baseURLProductsStub = environment.apiHost + environment.baseURL + '/products';
 
-export const getProductIDStub = 1;      
+export const getProductIDStub = 1;
+
+export const createProductResponseStub: ProductOutput = {
+    "id": 14,
+    "name": "P10",
+    "price": 10,
+    "createdAt": new Date("2023-12-18T09:31:54.798Z"),
+    "updatedAt": new Date("2023-12-18T09:31:54.798Z"),
+    "deletedAt": new Date("2023-12-18T09:31:54.798Z"),
+};

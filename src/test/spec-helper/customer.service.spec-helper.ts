@@ -59,3 +59,12 @@ export const createCustomerPayloadStub: CustomerInput = {
     name: 'Test',
     mobile: 1234567890
 };
+
+export const createCustomersResponseStub: CustomerOutput = {
+    id: 1,
+    name: 'Test',
+    mobile: 1234567890,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    deletedAt: new Date(),
+};

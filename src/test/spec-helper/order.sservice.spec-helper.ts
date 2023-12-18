@@ -53,3 +53,23 @@ export const createOrderPayloadStub: OrderInput = {
 export const baseURLOrdersStub = environment.apiHost + environment.baseURL + '/orders'; 
 
 export const getOrderIDStub = 2;
+
+export const createOrdersResponseStub: OrderOutput = {
+    id: 1,
+    customerID: 1,
+    paymentMethod: 'Cash',
+    totalAmount: 999,
+    orderDetails: [
+        {
+            orderID: 1,
+            productID: 1,
+            quantity: 1,
+            createdAt: new Date("2023-12-18T09:31:54.798Z"),
+            updatedAt: new Date("2023-12-18T09:31:54.798Z"),
+            deletedAt: new Date("2023-12-18T09:31:54.798Z"),
+        }
+    ],
+    createdAt: new Date("2023-12-18T09:31:54.798Z"),
+    updatedAt: new Date("2023-12-18T09:31:54.798Z"),
+    deletedAt: new Date("2023-12-18T09:31:54.798Z"),    
+};
