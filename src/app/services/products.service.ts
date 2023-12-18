@@ -27,7 +27,7 @@ export class ProductsService {
     return this.http.get<ProductOutput>(this.baseURL + `/${id}`);
   }
 
-  deleteById(id: number): Observable<boolean> {
+  /* deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(this.baseURL + `/${id}`);
-  }
+  } */
 }

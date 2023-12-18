@@ -27,7 +27,7 @@ export class CustomersService {
     return this.http.get<CustomerDetail>(this.baseUrL + `/${id}`);
   }
 
-  deleteById(id: number): Observable<boolean> {
+  /* deleteById(id: number): Observable<boolean> {
     return this.http.delete<boolean>(this.baseUrL + `/${id}`);
-  }
+  } */
 }
